@@ -8,7 +8,7 @@ pipeline{
   stages{
     stage('checkout'){
       steps{
-        def username="manoj"
+        //def username="manoj"
         echo "$username is my name"
         withCredentials([string(credentialsId: 'secretText', variable: 'MY_SECRET')]){
           sh "This is my secret text: ${MY_SECRET}"
