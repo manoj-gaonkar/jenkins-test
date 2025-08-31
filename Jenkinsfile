@@ -25,19 +25,19 @@ pipeline{
     stage('build'){
       steps{
         echo "Hello Building"
-        //sh 'mvn clean package'
+        sh 'mvn clean package'
       }
     }
 
     stage('test'){
       steps{
-        //sh 'mvn test'
+        sh 'mvn test'
       }
     }
 
     stage('Archive Artifact'){
       steps{
-        //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
       }
     }
   }
