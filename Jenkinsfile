@@ -4,6 +4,12 @@ pipeline{
     maven 'Maven3'
     jdk 'Java17'
   }
+
+  environment{
+    DOCKER_HUB_USER='manogaonkar'
+    DOCKER_HUB_REPO='java-app'
+    BUILD_NUMBER='latest'
+  }
   
   stages{
     stage('checkout'){
@@ -35,10 +41,26 @@ pipeline{
       }
     }
 
-    stage('Archive Artifact'){
+    // stage('Archive Artifact'){
+    //   steps{
+    //     archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+    //   }
+    // }
+
+    stage('Docker Build'){
       steps{
-        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        sh 'docker build -t $DOCKER_HUB_USER/$DOCKER_HUB_REPO:$BUILD_NUMBER .'
       }
     }
+
+    stage('Docker Push'){
+      steps{
+        withCredentials([usernamePassword(credentialsId: 'dockerHubCred', usernameVariable: 'USER', passwordVariable: 'PASS')]){
+          sh 'docker login -u $USER -p $PASS'
+          sh 'docker push -t $DOCKER_HUB_USER/$DOCKER_HUB_REPO:$BUILD_NUMBER'
+        }
+      }
+    }
+    
   }
 }
