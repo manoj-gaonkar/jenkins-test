@@ -8,6 +8,9 @@ pipeline{
   stages{
     stage('checkout'){
       steps{
+        withCredentials([string(credentialsId: 'secretText', variable: 'MY_SECRET')]){
+          sh "This is my secret text: $MY_SECRET"
+        }
         git branch: 'main', url: 'https://github.com/manoj-gaonkar/jenkins-test.git'
         }
     }
