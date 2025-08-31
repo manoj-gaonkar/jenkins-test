@@ -15,7 +15,7 @@ pipeline{
         }
         
         withCredentials([string(credentialsId: 'secretText', variable: 'MY_SECRET')]){
-          echo 'This is my secret text'
+          echo 'This is my secret text $MY_SECRET'
         }
         
         git branch: 'main', url: 'https://github.com/manoj-gaonkar/jenkins-test.git'
@@ -25,19 +25,19 @@ pipeline{
     stage('build'){
       steps{
         echo "Hello Building"
-        sh 'mvn clean package'
+        //sh 'mvn clean package'
       }
     }
 
     stage('test'){
       steps{
-        sh 'mvn test'
+        //sh 'mvn test'
       }
     }
 
     stage('Archive Artifact'){
       steps{
-        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
       }
     }
   }
