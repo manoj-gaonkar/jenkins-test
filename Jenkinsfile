@@ -15,7 +15,7 @@ pipeline{
         }
         
         withCredentials([string(credentialsId: 'secretText', variable: 'MY_SECRET')]){
-          sh "This is my secret text"
+          sh 'This is my secret text'
         }
         
         git branch: 'main', url: 'https://github.com/manoj-gaonkar/jenkins-test.git'
