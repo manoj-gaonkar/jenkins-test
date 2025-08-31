@@ -11,11 +11,11 @@ pipeline{
         
         script{
           def username = 'Manoj'
-          echo 'Hello Mr. ${username}'
+          echo "Hello Mr. ${username}"
         }
         
         withCredentials([string(credentialsId: 'secretText', variable: 'MY_SECRET')]){
-          echo 'This is my secret text $MY_SECRET'
+          echo "This is my secret text $MY_SECRET"
         }
         
         git branch: 'main', url: 'https://github.com/manoj-gaonkar/jenkins-test.git'
