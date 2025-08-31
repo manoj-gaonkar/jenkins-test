@@ -10,8 +10,11 @@ pipeline{
       steps{
         //def username="manoj"
         //echo "$username is my name"
+        def username = 'Jenkins'
+        echo 'Hello Mr. ${username}'
+        echo "I said, Hello Mr. ${username}"
         withCredentials([string(credentialsId: 'secretText', variable: 'MY_SECRET')]){
-          sh "This is my secret text: ${MY_SECRET}"
+          sh "This is my secret text"
         }
         git branch: 'main', url: 'https://github.com/manoj-gaonkar/jenkins-test.git'
         }
